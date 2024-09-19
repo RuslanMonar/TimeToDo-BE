@@ -13,6 +13,7 @@ var services = builder.Services;
 services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 services.AddEndpointsApiExplorer();
+
 services.AddSwaggerGen(c =>
 {
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
@@ -22,19 +23,22 @@ services.AddSwaggerGen(c =>
         Name = "Authorization",
         Type = SecuritySchemeType.ApiKey
     });
-    c.AddSecurityRequirement(new OpenApiSecurityRequirement {
-   {
-     new OpenApiSecurityScheme
-     {
-       Reference = new OpenApiReference
-       {
-         Type = ReferenceType.SecurityScheme,
-         Id = "Bearer"
-       }
-      },
-      new string[] { }
-    }
-  });
+
+    var securityScheme = new OpenApiSecurityScheme
+    {
+        Reference = new OpenApiReference
+        {
+            Type = ReferenceType.SecurityScheme,
+            Id = "Bearer"
+        }
+    };
+
+    var securityRequirement = new OpenApiSecurityRequirement
+    {
+        { securityScheme, Array.Empty<string>() }
+    };
+
+    c.AddSecurityRequirement(securityRequirement);
 });
 
 
