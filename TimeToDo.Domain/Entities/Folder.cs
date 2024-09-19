@@ -2,7 +2,7 @@
 public class Folder
 {
     public int Id { get; set; }
-    public int Title { get; set; }
+    public string Title { get; set; }
     public Guid UserId { get; set; }
     public string Color { get; set; }
 
