@@ -3,5 +3,4 @@
 namespace TimeToDo.Domain.Entities;
 public class User : IdentityUser<Guid>
 {
-
 }
