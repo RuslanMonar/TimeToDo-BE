@@ -21,6 +21,7 @@
   <ItemGroup>
     <ProjectReference Include="..\TimeToDo.Application\TimeToDo.Application.csproj" />
     <ProjectReference Include="..\TimeToDo.Infrastructure\TimeToDo.Infrastructure.csproj" />
+    <ProjectReference Include="..\TimeToDo.Shared\TimeToDo.Shared.csproj" />
   </ItemGroup>
 
 

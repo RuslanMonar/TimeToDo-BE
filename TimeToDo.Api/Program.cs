@@ -3,6 +3,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using TimeToDo.Application;
 using TimeToDo.Infrastructure;
+using TimeToDo.Shared;
 
 var builder = WebApplication.CreateBuilder(args);
 var configurations = builder.Configuration;
@@ -12,8 +13,11 @@ services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 services.AddEndpointsApiExplorer();
 services.AddSwaggerGen();
+
 services.AddApplication(configurations);
 services.AddInfrastructure(configurations);
+services.AddScoped<IRequestUser, RequestUser>();
+
 services.AddCors(Opt =>
 {
     Opt.AddPolicy("localhostOrigins", policy =>

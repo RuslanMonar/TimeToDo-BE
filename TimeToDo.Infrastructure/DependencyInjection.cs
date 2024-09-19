@@ -3,8 +3,10 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using TimeToDo.Application.Interfaces.Infrastructure;
+using TimeToDo.Application.Interfaces.Infrastructure.Repositories;
 using TimeToDo.Domain.Entities;
 using TimeToDo.Infrastructure.Data;
+using TimeToDo.Infrastructure.Repositories;
 
 namespace TimeToDo.Infrastructure;
 public static class DependencyInjection
@@ -19,6 +21,7 @@ public static class DependencyInjection
             .AddDefaultTokenProviders();
 
         services.AddScoped<ITimeToDoDbContext, TimeToDoDbContext>();
+        services.AddScoped<IProjectsRepository, ProjectsRepository>();
 
         return services;
     }

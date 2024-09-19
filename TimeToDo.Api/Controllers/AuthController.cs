@@ -12,7 +12,7 @@ public class AuthController : ApiController
 {
     [AllowAnonymous]
     [HttpPost("SignUp")]
-    public async Task<ActionResult<AuthResult>> SignUp(SignUpCommand request, CancellationToken cancellationToken)
+    public async Task<ActionResult<AuthResult>> SignUp([FromBody]  SignUpCommand request, CancellationToken cancellationToken)
     {
         var result = await Mediator.Send(request, cancellationToken);
 
@@ -21,7 +21,7 @@ public class AuthController : ApiController
 
     [AllowAnonymous]
     [HttpPost("SignIn")]
-    public async Task<ActionResult<AuthResult>> SignIn(SignInQuery request, CancellationToken cancellationToken)
+    public async Task<ActionResult<AuthResult>> SignIn([FromBody] SignInQuery request, CancellationToken cancellationToken)
     {
         var result = await Mediator.Send(request, cancellationToken);
 

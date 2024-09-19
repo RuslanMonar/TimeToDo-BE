@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\TimeToDo.Domain\TimeToDo.Domain.csproj" />
+    <ProjectReference Include="..\TimeToDo.Shared\TimeToDo.Shared.csproj" />
   </ItemGroup>
 
 </Project>
