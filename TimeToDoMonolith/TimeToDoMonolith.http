@@ -1,0 +1,6 @@
+@TimeToDoMonolith_HostAddress = http://localhost:5097
+
+GET {{TimeToDoMonolith_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
