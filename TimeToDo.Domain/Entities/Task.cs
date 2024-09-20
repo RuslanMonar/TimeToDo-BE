@@ -28,4 +28,5 @@ public class Task
     public Guid UserId { get; set; }
 
     public Project Project { get; set; }
+    public ICollection<TaskSession> TaskSessions { get; set; } = new List<TaskSession>();
 }
