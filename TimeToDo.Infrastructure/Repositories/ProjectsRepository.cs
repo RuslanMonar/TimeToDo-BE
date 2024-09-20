@@ -26,7 +26,7 @@ public class ProjectsRepository : IProjectsRepository
 
         if (folderId != null)
         {
-            projectsQuery.Where(x => x.FolderId == folderId);
+            projectsQuery = projectsQuery.Where(x => x.FolderId == folderId);
         }
 
         return await projectsQuery.ToListAsync(cancellationToken);
