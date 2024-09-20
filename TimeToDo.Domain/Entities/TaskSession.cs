@@ -6,8 +6,8 @@ public class TaskSession
     public Guid SessionId { get; set; }
     public DateTime StartDate { get; set; }
     public TimeSpan TimerStart { get; set; }
-    public TimeSpan TimerPause { get; set; }
-    public TimeSpan TimerEnd { get; set; }
+    public TimeSpan? TimerPause { get; set; }
+    public TimeSpan? TimerEnd { get; set; }
     public int SessionDurationMinutes { get; set; }
     public bool IsFullItteration { get; set; }
 

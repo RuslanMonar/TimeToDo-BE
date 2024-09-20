@@ -24,6 +24,7 @@ public static class DependencyInjection
         services.AddScoped<IProjectsRepository, ProjectsRepository>();
         services.AddScoped<IFoldersRepository, FoldersRepository>();
         services.AddScoped<ITasksRepository, TasksRepository>();
+        services.AddScoped<ITaskSessionsRepository, TaskSessionsRepository>();
 
         return services;
     }

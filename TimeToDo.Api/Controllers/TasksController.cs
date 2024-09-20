@@ -22,4 +22,11 @@ public class TasksController : ApiController
         var result = await Mediator.Send(request, cancellationToken);
         return Ok(result);
     }
+
+    [HttpGet("GetTaskPerformance")]
+    public async Task<ActionResult> GetTaskPerformance(GetTaskPerormanceStatisicQuery request, CancellationToken cancellationToken)
+    {
+        await Mediator.Send(request, cancellationToken);
+        return Ok();
+    }
 }
