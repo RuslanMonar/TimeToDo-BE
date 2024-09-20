@@ -23,6 +23,7 @@ public static class DependencyInjection
         services.AddScoped<ITimeToDoDbContext, TimeToDoDbContext>();
         services.AddScoped<IProjectsRepository, ProjectsRepository>();
         services.AddScoped<IFoldersRepository, FoldersRepository>();
+        services.AddScoped<ITasksRepository, TasksRepository>();
 
         return services;
     }

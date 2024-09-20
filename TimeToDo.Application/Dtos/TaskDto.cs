@@ -1,7 +1,7 @@
 ﻿using TimeToDo.Domain.Enums;
 
-namespace TimeToDo.Domain.Entities;
-public class Task
+namespace TimeToDo.Application.Dtos;
+public class TaskDto
 {
     public int Id { get; set; }
 
@@ -15,7 +15,7 @@ public class Task
 
     public int ProjectId { get; set; }
 
-    public DateTime StartDate { get; set; } 
+    public DateTime StartDate { get; set; }
 
     public DateTime EndDate { get; set; }
 
@@ -24,8 +24,4 @@ public class Task
     public DateTime? DateCompleted { get; set; }
 
     public string? Description { get; set; }
-
-    public Guid UserId { get; set; }
-
-    public Project Project { get; set; }
 }

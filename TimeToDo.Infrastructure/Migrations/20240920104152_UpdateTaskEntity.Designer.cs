@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using TimeToDo.Infrastructure.Data;
@@ -11,9 +12,11 @@ using TimeToDo.Infrastructure.Data;
 namespace TimeToDo.Infrastructure.Migrations
 {
     [DbContext(typeof(TimeToDoDbContext))]
-    partial class TimeToDoDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240920104152_UpdateTaskEntity")]
+    partial class UpdateTaskEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -213,7 +216,7 @@ namespace TimeToDo.Infrastructure.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<DateTime?>("DateCompleted")
+                    b.Property<DateTime>("DateCompleted")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Description")
