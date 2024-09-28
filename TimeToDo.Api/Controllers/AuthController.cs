@@ -27,4 +27,12 @@ public class AuthController : ApiController
 
         return Ok(result);
     }
+
+    [HttpPost("SignOut")]
+    public async Task<ActionResult<AuthResult>> SignOut([FromBody] SignInQuery request, CancellationToken cancellationToken)
+    {
+        var result = await Mediator.Send(request, cancellationToken);
+
+        return Ok(result);
+    }
 }
