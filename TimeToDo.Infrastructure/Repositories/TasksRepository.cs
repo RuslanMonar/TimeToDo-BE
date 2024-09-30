@@ -17,14 +17,20 @@ public class TasksRepository : ITasksRepository
         await _dbContext.SaveChangesAsync();
     }
 
-    public async Task<List<Domain.Entities.Task>> GetTasksAsync(Guid userId, int? projectId, CancellationToken cancellationToken)
+    public async Task<List<Domain.Entities.Task>> GetTasksAsync(Guid userId, int? projectId, int? taskId, CancellationToken cancellationToken)
     {
         var tasksQuery = _dbContext.Tasks.Where(x => x.UserId == userId).AsQueryable();
+
+        if(taskId != null)
+        {
+            tasksQuery = tasksQuery.Where(x => x.Id == taskId);
+        }
 
         if(projectId != null)
         {
             tasksQuery = tasksQuery.Where(x => x.ProjectId == projectId);
         }
+
         tasksQuery = tasksQuery.Include(x => x.TaskSessions);
 
         return await tasksQuery.ToListAsync(cancellationToken);
