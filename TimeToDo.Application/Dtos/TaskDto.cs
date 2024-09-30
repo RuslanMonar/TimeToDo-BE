@@ -10,6 +10,7 @@ public class TaskDto
     public Priority Priority { get; set; }
 
     public int TomatoCount { get; set; }
+    public int TomatoCompleted { get; set; } = 0;
 
     public int TomatoLenght { get; set; }
 

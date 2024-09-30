@@ -84,7 +84,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
+    
 app.UseCors("localhostOrigins");
 app.UseMiddleware<ExceptionHandlingMiddleware>();
 

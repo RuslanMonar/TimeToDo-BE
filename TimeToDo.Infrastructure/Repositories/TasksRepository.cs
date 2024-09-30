@@ -25,6 +25,7 @@ public class TasksRepository : ITasksRepository
         {
             tasksQuery = tasksQuery.Where(x => x.ProjectId == projectId);
         }
+        tasksQuery = tasksQuery.Include(x => x.TaskSessions);
 
         return await tasksQuery.ToListAsync(cancellationToken);
     }

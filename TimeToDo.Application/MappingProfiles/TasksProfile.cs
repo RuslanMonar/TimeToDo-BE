@@ -6,6 +6,9 @@ public class TasksProfile : Profile
 {
     public TasksProfile()
     {
-        CreateMap<Domain.Entities.Task, TaskDto>();
+        CreateMap<Domain.Entities.Task, TaskDto>().AfterMap((from,dest) =>
+        {
+            dest.TomatoCompleted = from.TaskSessions.Sum(s => s.SessionDurationMinutes)/from.TomatoLenght;
+        });
     }
 }

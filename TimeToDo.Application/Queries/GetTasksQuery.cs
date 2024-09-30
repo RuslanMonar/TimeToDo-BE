@@ -26,7 +26,13 @@ public class GetTasksQueryHandler : IRequestHandler<GetTasksQuery, List<TaskDto>
     }
     public async Task<List<TaskDto>> Handle(GetTasksQuery request, CancellationToken cancellationToken)
     {
-        var projects = await _tasksReporistory.GetTasksAsync(_requestUser.Id, request.ProjectId, cancellationToken);
-        return _mapper.Map<List<TaskDto>>(projects);
+        var tasks = await _tasksReporistory.GetTasksAsync(_requestUser.Id, request.ProjectId, cancellationToken);
+
+        foreach (var task in tasks)
+        {
+            var a = task.TaskSessions.Sum(s => s.SessionDurationMinutes);
+        }
+
+        return _mapper.Map<List<TaskDto>>(tasks);
     }
 }
