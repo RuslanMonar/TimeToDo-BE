@@ -35,4 +35,27 @@ public class TasksRepository : ITasksRepository
 
         return await tasksQuery.ToListAsync(cancellationToken);
     }
+
+    public async Task UpdateTaskAsync(Domain.Entities.Task updatedTask, int taskId, Guid userId)
+    {
+        var task = await _dbContext.Tasks.FirstOrDefaultAsync(x => x.UserId == userId && x.Id == taskId);
+
+        if (task == null)
+        {
+            throw new KeyNotFoundException("Task not found.");
+        }
+
+        // Update task fields
+        task.Title = updatedTask.Title;
+        task.Priority = updatedTask.Priority;
+        task.TomatoCount = updatedTask.TomatoCount;
+        task.TomatoLenght = updatedTask.TomatoLenght;
+        task.ProjectId = updatedTask.ProjectId;
+        task.StartDate = updatedTask.StartDate;
+        task.EndDate = updatedTask.EndDate;
+        task.Description = updatedTask.Description;
+
+        // Save changes
+        await _dbContext.SaveChangesAsync();
+    }
 }
