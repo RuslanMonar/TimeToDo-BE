@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Any;
 using Microsoft.OpenApi.Models;
 using System.Text;
 using TimeToDo.API.Middlewares;
@@ -25,6 +26,7 @@ services.AddSwaggerGen(c =>
         Type = SecuritySchemeType.ApiKey
     });
 
+
     var securityScheme = new OpenApiSecurityScheme
     {
         Reference = new OpenApiReference
@@ -40,6 +42,13 @@ services.AddSwaggerGen(c =>
     };
 
     c.AddSecurityRequirement(securityRequirement);
+
+    c.MapType<TimeSpan?>(() => new OpenApiSchema
+    {
+        Type = "string",
+        Example = new OpenApiString("00:00:00"),
+        Nullable = true
+    });
 });
 
 
