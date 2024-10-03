@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using TimeToDo.Application.Dtos;
 using TimeToDo.Application.Interfaces.Infrastructure;
 using TimeToDo.Application.Interfaces.Infrastructure.Repositories;
 using TimeToDo.Domain.Entities;
@@ -30,5 +31,25 @@ public class ProjectsRepository : IProjectsRepository
         }
 
         return await projectsQuery.ToListAsync(cancellationToken);
+    }
+
+    public async Task<List<ProjectStatisticsDto>> GetProjectsStatisticAsync(Guid userId, CancellationToken cancellationToken)
+    {
+        var result = await _dbContext.Projects
+        .Where(p => p.UserId == userId)
+        .Select(p => new ProjectStatisticsDto
+        {
+            ProjectId = p.Id,
+            ProjectTitle = p.Title,
+            TotalHours = p.Tasks
+                .SelectMany(t => t.TaskSessions)
+                .Sum(ts => ts.SessionDurationMinutes)/60  // Sum session duration minutes for tasks within a project
+        })
+        .ToListAsync(cancellationToken);
+
+
+
+
+        return result;
     }
 }

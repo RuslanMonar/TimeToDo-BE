@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using TimeToDo.Application.Commands;
 using TimeToDo.Application.Dtos;
 using TimeToDo.Application.Queries;
@@ -19,6 +20,14 @@ public class ProjectsController : ApiController
 
     [HttpGet]
     public async Task<ActionResult<List<ProjectDto>>> GetProjects(GetProjectsQuery request, CancellationToken cancellationToken)
+    {
+        var result = await Mediator.Send(request, cancellationToken);
+        return Ok(result);
+    }
+
+    [AllowAnonymous]
+    [HttpGet("GetProjectsSatistic")]
+    public async Task<ActionResult<List<ProjectStatisticsDto>>> GetProjectsSatistic(GetProjectStatisticQuery request, CancellationToken cancellationToken)
     {
         var result = await Mediator.Send(request, cancellationToken);
         return Ok(result);
