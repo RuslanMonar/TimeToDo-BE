@@ -43,13 +43,35 @@ public class ProjectsRepository : IProjectsRepository
             ProjectTitle = p.Title,
             TotalHours = p.Tasks
                 .SelectMany(t => t.TaskSessions)
-                .Sum(ts => ts.SessionDurationMinutes)/60  // Sum session duration minutes for tasks within a project
+                .Sum(ts => ts.SessionDurationMinutes) / 60,
         })
         .ToListAsync(cancellationToken);
 
-
-
-
         return result;
+    }
+
+    public async Task<List<ProjectSessionDto>> GetProjectsTimelineAsync(Guid userId, CancellationToken cancellationToken)
+    {
+        return await _dbContext.Projects
+        .Where(p => p.UserId == userId)
+        .Include(p => p.Tasks)
+        .ThenInclude(t => t.TaskSessions)
+        .Select(p => new ProjectSessionDto
+        {
+            Name = p.Title,
+            Data = p.Tasks.SelectMany(t => t.TaskSessions.Select(ts => new TaskSessionDataDto
+            {
+                X = t.Title,
+                Y = new string[]
+                {
+                    ts.StartDate.Add(ts.TimerStart).ToString("yyyy-MM-ddTHH:mm:ssZ"),  // Додаємо timerStart до startDate
+                    ts.TimerEnd.HasValue
+                        ? ts.StartDate.Add(ts.TimerEnd.Value).ToString("yyyy-MM-ddTHH:mm:ssZ")  // Якщо timerEnd не null
+                        : ts.TimerPause.HasValue
+                            ? ts.StartDate.Add(ts.TimerPause.Value).ToString("yyyy-MM-ddTHH:mm:ssZ")  // Якщо timerEnd null, то додаємо timerPause
+                            : ts.StartDate.AddMinutes(ts.SessionDurationMinutes).ToString("yyyy-MM-ddTHH:mm:ssZ")  // Якщо обидва null, додаємо duration
+                }
+            })).ToList()
+        }).ToListAsync();
     }
 }

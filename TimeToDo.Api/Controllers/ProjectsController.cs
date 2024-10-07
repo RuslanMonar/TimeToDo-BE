@@ -25,9 +25,16 @@ public class ProjectsController : ApiController
         return Ok(result);
     }
 
-    [AllowAnonymous]
+
     [HttpGet("GetProjectsSatistic")]
     public async Task<ActionResult<List<ProjectStatisticsDto>>> GetProjectsSatistic(GetProjectStatisticQuery request, CancellationToken cancellationToken)
+    {
+        var result = await Mediator.Send(request, cancellationToken);
+        return Ok(result);
+    }
+    
+    [HttpGet("GetProjectsTimeline")]
+    public async Task<ActionResult<List<ProjectStatisticsDto>>> GetProjectsTimeline(GetProjectsTimelineQuery request, CancellationToken cancellationToken)
     {
         var result = await Mediator.Send(request, cancellationToken);
         return Ok(result);
