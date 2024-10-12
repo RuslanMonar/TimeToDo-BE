@@ -37,6 +37,13 @@ public class TasksController : ApiController
         return Ok();
     }
     
+    [HttpPut("MarkTaskCompleted")]
+    public async Task<ActionResult> MarkTaskCompletedCommand([FromBody] MarkTaskCompletedCommand request, CancellationToken cancellationToken)
+    {
+        await Mediator.Send(request, cancellationToken);
+        return Ok();
+    }
+    
     [HttpPost("CreateTaskSession")]
     public async Task<ActionResult> CreateTaskSessiond([FromBody] CreateTaskSessionCommand request, CancellationToken cancellationToken)
     {

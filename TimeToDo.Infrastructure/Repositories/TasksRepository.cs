@@ -55,7 +55,21 @@ public class TasksRepository : ITasksRepository
         task.EndDate = updatedTask.EndDate;
         task.Description = updatedTask.Description;
 
-        // Save changes
+        await _dbContext.SaveChangesAsync();
+    }
+
+    public async Task MarkTaskCompletedAsync(int taskId, bool completed, DateTime? dateCompleted, Guid userId)
+    {
+        var task = await _dbContext.Tasks.FirstOrDefaultAsync(x => x.UserId == userId && x.Id == taskId);
+
+        if (task == null)
+        {
+            throw new KeyNotFoundException("Task not found.");
+        }
+
+        task.IsCompleted = completed;
+        task.DateCompleted = dateCompleted;
+
         await _dbContext.SaveChangesAsync();
     }
 }
