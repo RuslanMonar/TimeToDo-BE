@@ -25,6 +25,7 @@ public class GetProjectStatisticQueryHandler : IRequestHandler<GetProjectStatist
     {
         var userId = _requestUser.Id;
         var reslut = await _projectsRepository.GetProjectsStatisticAsync(userId, cancellationToken);
+        var test = await _projectsRepository.GetProjectsStatisticTimeRangeAsync(userId, cancellationToken);
         return reslut.Where(x => x.TotalHours > 0).ToList();
     }
 }

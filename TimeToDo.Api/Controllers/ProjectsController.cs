@@ -39,4 +39,11 @@ public class ProjectsController : ApiController
         var result = await Mediator.Send(request, cancellationToken);
         return Ok(result);
     }
+    
+    [HttpGet("GetProjectsStatisticTimeRange")]
+    public async Task<ActionResult<List<ProjectStatisticsTimeRangeDto>>> GetProjectsStatisticTimeRange(GetProjectsStatisticTimeRangeQuery request, CancellationToken cancellationToken)
+    {
+        var result = await Mediator.Send(request, cancellationToken);
+        return Ok(result);
+    }
 }

@@ -8,4 +8,5 @@ public interface IProjectsRepository
     public Task<Project> CreateProjectAsync(Project project);
     Task<List<ProjectStatisticsDto>> GetProjectsStatisticAsync(Guid userId, CancellationToken cancellationToken);
     Task<List<ProjectSessionDto>> GetProjectsTimelineAsync(Guid userId, CancellationToken cancellationToken);
+    Task<List<ProjectStatisticsTimeRangeDto>> GetProjectsStatisticTimeRangeAsync(Guid userId, CancellationToken cancellationToken);
 }
