@@ -10,6 +10,7 @@ public class GetTasksQuery : IRequest<List<TaskDto>>
 {
     public int? ProjectId { get; set; }
     public int? TaskId { get; set; }
+    public bool Completed { get; set; } = false;
 }
 
 public class GetTasksQueryHandler : IRequestHandler<GetTasksQuery, List<TaskDto>>
@@ -27,7 +28,7 @@ public class GetTasksQueryHandler : IRequestHandler<GetTasksQuery, List<TaskDto>
     }
     public async Task<List<TaskDto>> Handle(GetTasksQuery request, CancellationToken cancellationToken)
     {
-        var tasks = await _tasksReporistory.GetTasksAsync(_requestUser.Id, request.ProjectId, request.TaskId, cancellationToken);
+        var tasks = await _tasksReporistory.GetTasksAsync(_requestUser.Id, request.ProjectId, request.TaskId, request.Completed, cancellationToken);
 
         foreach (var task in tasks)
         {

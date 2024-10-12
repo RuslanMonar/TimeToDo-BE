@@ -17,9 +17,9 @@ public class TasksRepository : ITasksRepository
         await _dbContext.SaveChangesAsync();
     }
 
-    public async Task<List<Domain.Entities.Task>> GetTasksAsync(Guid userId, int? projectId, int? taskId, CancellationToken cancellationToken)
+    public async Task<List<Domain.Entities.Task>> GetTasksAsync(Guid userId, int? projectId, int? taskId, bool completed, CancellationToken cancellationToken)
     {
-        var tasksQuery = _dbContext.Tasks.Where(x => x.UserId == userId).AsQueryable();
+        var tasksQuery = _dbContext.Tasks.Where(x => x.UserId == userId && x.IsCompleted == completed).AsQueryable();
 
         if(taskId != null)
         {

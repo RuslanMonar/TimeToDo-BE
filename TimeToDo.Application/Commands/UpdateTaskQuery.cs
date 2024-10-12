@@ -35,7 +35,7 @@ public class UpdateTaskQueryHandler : IRequestHandler<UpdateTaskQuery, Unit>
         var userId = _requestUser.Id;
 
         // Retrieve the task by taskId and userId
-        var task = await _tasksRepository.GetTasksAsync(userId, request.ProjectId, request.TaskId, cancellationToken);
+        var task = await _tasksRepository.GetTasksAsync(userId, request.ProjectId, request.TaskId, false, cancellationToken);
 
         // Ensure the task exists and belongs to the user
         var existingTask = task.FirstOrDefault();
