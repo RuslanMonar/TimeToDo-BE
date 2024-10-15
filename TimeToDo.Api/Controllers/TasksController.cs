@@ -47,7 +47,14 @@ public class TasksController : ApiController
     [HttpPost("CreateTaskSession")]
     public async Task<ActionResult> CreateTaskSessiond([FromBody] CreateTaskSessionCommand request, CancellationToken cancellationToken)
     {
-        //await Mediator.Send(request, cancellationToken);
+        await Mediator.Send(request, cancellationToken);
         return Ok();
+    }
+    
+    [HttpGet("GetRecomendations")]
+    public async Task<ActionResult<List<string>>> GetRecomendations(GetRecomendationsQuery request, CancellationToken cancellationToken)
+    {
+        var result = await Mediator.Send(request, cancellationToken);
+        return Ok(result);
     }
 }
