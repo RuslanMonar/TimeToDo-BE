@@ -76,7 +76,7 @@ public class TasksRepository : ITasksRepository
 
     public async Task<List<string>> GetRecomendationsAsync(Guid userId)
     {
-        var recomandations = new List<string>();
+        var recommendations = new List<string>();
 
         //1. Порада по дню тижня:
         var bestDayOfWeek = await _dbContext.TaskSessions
@@ -88,7 +88,7 @@ public class TasksRepository : ITasksRepository
 
         if (bestDayOfWeek != null)
         {
-            recomandations.Add($"Ви найчастіше завершуєте задачі у {bestDayOfWeek.Day}. Спробуйте планувати задачі на цей день!");
+            recommendations.Add($"You most often complete tasks on {bestDayOfWeek.Day}. Try planning tasks for this day!");
         }
 
         //2. Порада по часу доби:
@@ -101,7 +101,7 @@ public class TasksRepository : ITasksRepository
 
         if (productiveTime != null)
         {
-            recomandations.Add($"Найчастіше ви завершуєте задачі між {productiveTime.Hour}:00 і {productiveTime.Hour + 1}:00. Спробуйте планувати задачі на цей час!");
+            recommendations.Add($"You usually complete tasks between {productiveTime.Hour}:00 and {productiveTime.Hour + 1}:00. Try scheduling tasks for this time!");
         }
 
         //3. Порада по ітераціях:
@@ -111,7 +111,7 @@ public class TasksRepository : ITasksRepository
 
         if (incompleteSessions > 5)
         {
-            recomandations.Add($"Ви не завершили {incompleteSessions} сесій. Спробуйте планувати коротші ітерації.");
+            recommendations.Add($"You have not completed {incompleteSessions} sessions. Try planning shorter iterations.");
         }
 
         //4. Порада по завершеним задачам:
@@ -122,7 +122,7 @@ public class TasksRepository : ITasksRepository
 
         if (longPendingTasks.Any())
         {
-            recomandations.Add($"У вас є {longPendingTasks.Count} задачі, які залишаються незавершеними більше тижня. Спробуйте розбити їх на менші задачі або встановити дедлайн.");
+            recommendations.Add($"You have {longPendingTasks.Count} tasks that have been incomplete for over a week. Try breaking them down into smaller tasks or setting a deadline.");
         }
 
         //5. Рекомендація по кількості ітерацій:
@@ -135,7 +135,7 @@ public class TasksRepository : ITasksRepository
 
         if (taskWithSessions != null && taskWithSessions.SessionCount > 3)
         {
-            recomandations.Add($"Задачі, що мали більше трьох ітерацій, частіше завершувались успішно. Спробуйте більше коротких сесій.");
+            recommendations.Add($"Tasks that had more than three iterations were completed more successfully. Try more short sessions.");
         }
 
         //6. Аналіз перевтоми:
@@ -145,7 +145,7 @@ public class TasksRepository : ITasksRepository
 
         if (longSessions > 5)
         {
-            recomandations.Add($"У вас було {longSessions} сесій більше години. Рекомендуємо робити короткі перерви, щоб уникнути перевтоми.");
+            recommendations.Add($"You had {longSessions} sessions longer than an hour. We recommend taking short breaks to avoid overwork.");
         }
 
         //7. Рекомендація по часу для важливих задач:
@@ -158,9 +158,9 @@ public class TasksRepository : ITasksRepository
 
         if (highPriorityTasks != null)
         {
-            recomandations.Add($"Ви зазвичай завершували задачі з високим пріоритетом між {highPriorityTasks.Hour}:00 і {highPriorityTasks.Hour + 1}:00. Плануйте важливі задачі на цей час.");
+            recommendations.Add($"You usually completed high-priority tasks between {highPriorityTasks.Hour}:00 and {highPriorityTasks.Hour + 1}:00. Schedule important tasks for this time.");
         }
 
-        return recomandations;
+        return recommendations;
     }
 }
