@@ -52,7 +52,7 @@ public class TasksController : ApiController
     }
     
     [HttpGet("GetRecomendations")]
-    public async Task<ActionResult<List<string>>> GetRecomendations(GetRecomendationsQuery request, CancellationToken cancellationToken)
+    public async Task<ActionResult<List<List<string>>>> GetRecomendations(GetRecomendationsQuery request, CancellationToken cancellationToken)
     {
         var result = await Mediator.Send(request, cancellationToken);
         return Ok(result);
